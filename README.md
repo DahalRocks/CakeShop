@@ -31,5 +31,5 @@ Make a method that extracts the longest time from a cake was ordered until it wa
 
 # Functionality Requirements 3: Error Management
 
-When problems arise in the system, for example. If an attempt is made to register an order for a customer that does not exist,
+When problems arise in the system, for example, if an attempt is made to register an order for a customer that does not exist,
 or if an invalid input is entered for a method then this should be treated with care.
