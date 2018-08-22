@@ -1,4 +1,4 @@
-# CakeShop
+# CakeStore
 
 The task:
 
