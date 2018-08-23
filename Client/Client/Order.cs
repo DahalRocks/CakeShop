@@ -10,7 +10,6 @@ namespace Client
     {
         public int OrderID { get; set; }
         public Customer CustomerWithOrder { get; set; }
-        //public Cake OrderedCake { get; set; }
         public Dictionary<string, int> CakeOrder { get; set; }
         public bool IsDelivered { get; set; }
         public DateTime OrderedDate { get; set; }
