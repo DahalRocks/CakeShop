@@ -9,19 +9,9 @@ namespace Client
     class OrderManager
     {
         public static List<Order> FinalOrderList = new List<Order>();
-        public static bool RegisterOrder(Order order)
+        public static void RegisterOrder(Order order)
         {
-            bool result = true;
-            try
-            {
-                FinalOrderList.Add(order);
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-                result = false;
-            }
-            return result;
+            FinalOrderList.Add(order);
         }
         public static void GetDeliveredOrderFor(Customer customer)
         {
@@ -35,28 +25,40 @@ namespace Client
         }
         public static void ChangeOrderStatusToDelivered(Order order)
         {
-            var ord = from lst in FinalOrderList
-                      where lst.OrderID == order.OrderID
-                      select lst;
-            foreach (var o in ord)
+            try
             {
-                o.IsDelivered = true;
-                o.DeliveredDate = System.DateTime.Now;
-            }
-        }
-        /*public int GetMostDelayedDelivery()
-        {
-            if (FinalOrderList.Count != 0)
-            {
-                foreach(var list in FinalOrderList)
+                var ord = from lst in FinalOrderList
+                          where lst.OrderID == order.OrderID
+                          select lst;
+                foreach (var o in ord)
                 {
-                    list.OrderedDate
+                    o.IsDelivered = true;
+                    o.DeliveredDate = System.DateTime.Now;
                 }
             }
-            var order=from lst in FinalOrderList
-                      where lst.OrderedDate-lst.DeliveredDate
-        }*/
-
-
+            catch (NullReferenceException e)
+            {
+                throw;
+            }
+        }
+        public static void GetMostDelayedDelivery()
+        {
+            Dictionary<TimeSpan, int> orderPeriod = new Dictionary<TimeSpan, int>();
+            if (FinalOrderList.Count > 0)
+            {
+                foreach (var lst in FinalOrderList)
+                {
+                        TimeSpan timeDifference = lst.DeliveredDate - lst.OrderedDate;
+                        orderPeriod.Add(timeDifference,lst.OrderID);
+                }
+                var lazyDelivery = from ord in orderPeriod
+                                   where ord.Key == orderPeriod.Keys.Max()
+                                   select ord;
+                foreach (var list in lazyDelivery)
+                {
+                    Console.WriteLine($"The longest delivery period{list.Key}and this is for order:{list.Value}");
+                }
+            }
+        }
     }
 }

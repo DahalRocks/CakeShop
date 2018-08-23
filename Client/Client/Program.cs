@@ -10,20 +10,31 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Customer cos = new Customer(){CustomerName = "Ramesh"};
-            CustomerManager.RegisterNewCustomer(cos);
+            //create and initialize customer objects
+            Customer customerOne = new Customer(){CustomerName = "Ramesh"};
+            Customer customerTwo = new Customer(){CustomerName = "Dhruba"};
+            Customer customerThree = new Customer(){CustomerName = "Erik"};
+            //register customers to the system
+            CustomerManager.RegisterNewCustomer(customerOne);
+            CustomerManager.RegisterNewCustomer(customerTwo);
+            CustomerManager.RegisterNewCustomer(customerThree);
+            //create collection object for cake and quantity selected by a customer
             Dictionary<string, int> orderList = new Dictionary<string, int>();
             orderList.Add("KranseKaker", 1);
             orderList.Add("ChocolateKake", 1);
             orderList.Add("BløtKake", 1);
-            Order orderOne = new Order() { CakeOrder = orderList, CustomerWithOrder = cos, OrderedDate = System.DateTime.Now };
-            if (OrderManager.RegisterOrder(orderOne))
-                Console.WriteLine("Registration is successful");
-            else
-                Console.WriteLine("Problem with registration");
+            //create order for the customer
+            Order orderOne = new Order() { CakeOrder = orderList, CustomerWithOrder = customerOne, OrderedDate = System.DateTime.Now };
+            //register order for the customer
+            OrderManager.RegisterOrder(orderOne);
+            //display registered customers sorted by alphabet(ascending order) 
             CustomerManager.ExtractCustomerSortedByName();
+            //mark order as a  successfully delivered 
             OrderManager.ChangeOrderStatusToDelivered(orderOne);
-            OrderManager.GetDeliveredOrderFor(cos);
+            //display successful delivery for a particular customer
+            OrderManager.GetDeliveredOrderFor(customerOne);
+            //display most lazy delivery in a whole delivery
+            OrderManager.GetMostDelayedDelivery();
             Console.ReadKey();
         }
     }
