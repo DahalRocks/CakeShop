@@ -23,8 +23,10 @@ namespace Client
             orderList.Add("KranseKaker", 1);
             orderList.Add("ChocolateKake", 1);
             orderList.Add("BløtKake", 1);
-            //create order for the customer
+            //create order for the customers
             Order orderOne = new Order() { CakeOrder = orderList, CustomerWithOrder = customerOne, OrderedDate = System.DateTime.Now };
+            Order orderTwo = new Order() { CakeOrder = orderList, CustomerWithOrder = customerTwo, OrderedDate = System.DateTime.Now };
+            Order orderThree = new Order() { CakeOrder = orderList, CustomerWithOrder = customerThree, OrderedDate = System.DateTime.Now };
             //register order for the customer
             OrderManager.RegisterOrder(orderOne);
             //display registered customers sorted by alphabet(ascending order) 

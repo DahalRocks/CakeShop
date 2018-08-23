@@ -20,7 +20,7 @@ namespace Client
                                      select order;
             foreach (var delivery in deliveredOrderList)
             {
-                Console.WriteLine(delivery.OrderID);
+                Console.WriteLine("This is a successful delivery having OrderID:"+delivery.OrderID+"for the customer named:"+delivery.CustomerWithOrder.CustomerName);
             }
         }
         public static void ChangeOrderStatusToDelivered(Order order)
@@ -56,7 +56,7 @@ namespace Client
                                    select ord;
                 foreach (var list in lazyDelivery)
                 {
-                    Console.WriteLine($"The longest delivery period{list.Key}and this is for order:{list.Value}");
+                    Console.WriteLine($"The longest delivery time period: {list.Key} and this is for the order with OrderID:{list.Value}");
                 }
             }
         }
