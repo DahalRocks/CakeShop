@@ -11,20 +11,42 @@ namespace Client
         public static List<Customer> lstCustomer = new List<Customer>();
         public static void RegisterNewCustomer(Customer customer)
         {
-            lstCustomer.Add(customer);
+            try
+            {
+                lstCustomer.Add(customer);
+            }
+            catch (NullReferenceException e)
+            {
+
+                throw e;
+            }
+            
         }
-        public bool CheckCustomer(string name)
+        public static bool CheckCustomer(string name)
         {
-            Customer c = new Customer() { CustomerName = name };
-            return lstCustomer.Contains(c) ? true : false;
+            try
+            {
+                Customer c = new Customer() { CustomerName = name };
+                return lstCustomer.Contains(c) ? true : false;
+            }
+            catch (NullReferenceException e)
+            {
+                throw e;
+            }
+            
         }
         public static void ExtractCustomerSortedByName()
         {
-            var sortedList = lstCustomer.OrderBy(c => c.CustomerName).ToList<Customer>();
-            foreach (var c in sortedList)
+            if (lstCustomer.Count > 0)
             {
-                Console.WriteLine(c.CustomerName);
+                var sortedList = lstCustomer.OrderBy(c => c.CustomerName).ToList<Customer>();
+                Console.WriteLine("The sorted list of registered customers:");
+                foreach (var c in sortedList)
+                {
+                    Console.WriteLine(c.CustomerName);
+                }
             }
+            
         }
     }
 }

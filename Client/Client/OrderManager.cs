@@ -11,17 +11,32 @@ namespace Client
         public static List<Order> FinalOrderList = new List<Order>();
         public static void RegisterOrder(Order order)
         {
-            FinalOrderList.Add(order);
+            try
+            {
+                FinalOrderList.Add(order);
+            }
+            catch (NullReferenceException e)
+            {
+
+                throw e;
+            }
+            
         }
         public static void GetDeliveredOrderFor(Customer customer)
         {
-            var deliveredOrderList = from order in FinalOrderList
-                                     where order.CustomerWithOrder.CustomerID == customer.CustomerID && order.IsDelivered == true
-                                     select order;
-            foreach (var delivery in deliveredOrderList)
+            if (customer != null)
             {
-                Console.WriteLine("This is a successful delivery having OrderID:"+delivery.OrderID+"for the customer named:"+delivery.CustomerWithOrder.CustomerName);
+                var deliveredOrderList = from order in FinalOrderList
+                                         where order.CustomerWithOrder.CustomerID == customer.CustomerID && order.IsDelivered == true
+                                         select order;
+                foreach (var delivery in deliveredOrderList)
+                {
+                    Console.WriteLine($"This is a successful delivery having OrderID:{delivery.OrderID} for the customer named:{delivery.CustomerWithOrder.CustomerName}");
+                }
             }
+            else
+                throw new NullReferenceException();
+            
         }
         public static void ChangeOrderStatusToDelivered(Order order)
         {
@@ -38,7 +53,7 @@ namespace Client
             }
             catch (NullReferenceException e)
             {
-                throw;
+                throw e;
             }
         }
         public static void GetMostDelayedDelivery()
