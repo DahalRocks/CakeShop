@@ -29,10 +29,13 @@ namespace Client
             Order orderThree = new Order() { CakeOrder = orderList, CustomerWithOrder = customerThree, OrderedDate = System.DateTime.Now };
             //register order for the customer
             OrderManager.RegisterOrder(orderOne);
+            OrderManager.RegisterOrder(orderTwo);
+            OrderManager.RegisterOrder(orderThree);
             //display registered customers sorted by alphabet(ascending order) 
             CustomerManager.ExtractCustomerSortedByName();
             //mark order as a  successfully delivered 
             OrderManager.ChangeOrderStatusToDelivered(orderOne);
+            OrderManager.ChangeOrderStatusToDelivered(orderThree);
             //display successful delivery for a particular customer
             OrderManager.GetDeliveredOrderFor(customerOne);
             //display most lazy delivery in a whole delivery

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Client
 {
+    /// <summary>
+    /// Works with order object list creation and extraction
+    /// </summary>
     class OrderManager
     {
         public static List<Order> FinalOrderList = new List<Order>();
@@ -58,20 +61,20 @@ namespace Client
         }
         public static void GetMostDelayedDelivery()
         {
-            Dictionary<TimeSpan, int> orderPeriod = new Dictionary<TimeSpan, int>();
+            Dictionary<int,TimeSpan> orderPeriod = new Dictionary<int,TimeSpan>();
             if (FinalOrderList.Count > 0)
             {
                 foreach (var lst in FinalOrderList)
                 {
                         TimeSpan timeDifference = lst.DeliveredDate - lst.OrderedDate;
-                        orderPeriod.Add(timeDifference,lst.OrderID);
+                        orderPeriod.Add(lst.OrderID, timeDifference);
                 }
                 var lazyDelivery = from ord in orderPeriod
-                                   where ord.Key == orderPeriod.Keys.Max()
+                                   where ord.Value == orderPeriod.Values.Max()
                                    select ord;
                 foreach (var list in lazyDelivery)
                 {
-                    Console.WriteLine($"The longest delivery time period: {list.Key} and this is for the order with OrderID:{list.Value}");
+                    Console.WriteLine($"The longest delivery time period: {list.Value} and this is for the order with OrderID:{list.Key}");
                 }
             }
         }

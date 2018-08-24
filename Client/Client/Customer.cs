@@ -9,9 +9,10 @@ namespace Client
     class Customer
     {
         
-            public int CustomerID { get; }
-            public string CustomerName { get; set; }
-            public Customer() { System.Random random = new Random(); this.CustomerID = random.Next(); }
+        public int CustomerID { get; }
+        public string CustomerName { get; set; }
+        private static System.Random random = new Random();
+        public Customer() { this.CustomerID = random.Next(); }
        
     }
 }

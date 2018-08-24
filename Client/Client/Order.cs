@@ -14,9 +14,9 @@ namespace Client
         public bool IsDelivered { get; set; }
         public DateTime OrderedDate { get; set; }
         public DateTime DeliveredDate { get; set; }
+        private static Random random = new Random();
         public Order()
         {
-            Random random = new Random();
             this.OrderID = random.Next();
             this.IsDelivered = false;
         }
